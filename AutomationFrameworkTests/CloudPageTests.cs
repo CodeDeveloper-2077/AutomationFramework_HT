@@ -5,36 +5,32 @@ using OpenQA.Selenium.Chrome;
 namespace AutomationFrameworkTests
 {
     [TestClass]
-    public class CloudPageTests
+    public class CloudPageTests : CommonConditions
     {
-        private IWebDriver _driver;
         private CloudPage _cloudPage;
+        private CalculatorPage _calculatorPage;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _driver = new ChromeDriver();
-            _driver.Manage().Window.Maximize();
-            _cloudPage = new CloudPage(_driver);
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-            _driver.Quit();
+            base.TestInitialize();
+            _cloudPage = new CloudPage(driver);
+            _calculatorPage = new CalculatorPage(driver);
         }
 
         [TestMethod]
         public void SearchPage_ShouldNavigateToGoogleCalculatorPage()
         {
             //Arrange
+            string expectedHeader = "Google Cloud Pricing Calculator";
             string pageToSearchName = "Google Cloud Platform Pricing Calculator";
 
             //Act
             _cloudPage.Navigate();
             _cloudPage.SearchPage(pageToSearchName);
 
-            //TODO: Do Assert in this class
+            //Assert
+            Assert.AreEqual(expectedHeader, _cloudPage.GetFrameHeader(), $"Actual header should be equal to {expectedHeader}");
         }
     }
 }

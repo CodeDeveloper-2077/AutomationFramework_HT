@@ -1,17 +1,18 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 
 namespace AutomationFramework_HT
 {
-    public class CloudPage
+    public class CloudPage : AbstractPage
     {
-        private readonly string _url = "https://cloud.google.com";
-        private readonly IWebDriver _driver;
+        private readonly By _frameHeaderLocator = By.ClassName("ng-binding");
 
         public CloudPage(IWebDriver driver)
+            :base(driver)
         {
-            _driver = driver;
-            PageFactory.InitElements(_driver, this);
+            url = "https://cloud.google.com";
+            PageFactory.InitElements(driver, this);
         }
 
         [FindsBy(How = How.XPath, Using = "//input[@placeholder='Search']")]
@@ -20,17 +21,20 @@ namespace AutomationFramework_HT
         [FindsBy(How = How.XPath, Using = "//a[@class='gs-title']")]
         public IWebElement CalculatorPageLink { get; set; }
 
-        public void Navigate()
-        {
-            _driver.Navigate().GoToUrl(_url);
-        }
-
         public void SearchPage(string pageToSearch)
         {
             SearchInput.Click();
             SearchInput.SendKeys(pageToSearch);
             SearchInput.SendKeys(Keys.Enter);
             CalculatorPageLink.Click();
+        }
+
+        public string GetFrameHeader()
+        {
+            SwitchToFrames();
+
+            var frameHeader = _wait.Until(ExpectedConditions.ElementExists(_frameHeaderLocator));
+            return frameHeader.Text;
         }
     }
 }
