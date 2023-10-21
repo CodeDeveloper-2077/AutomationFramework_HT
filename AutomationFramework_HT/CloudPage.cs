@@ -33,7 +33,7 @@ namespace AutomationFramework_HT
         {
             SwitchToFrames();
 
-            var frameHeader = _wait.Until(ExpectedConditions.ElementExists(_frameHeaderLocator));
+            var frameHeader = wait.Until(ExpectedConditions.ElementExists(_frameHeaderLocator));
             return frameHeader.Text;
         }
     }

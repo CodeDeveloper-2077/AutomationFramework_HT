@@ -12,12 +12,12 @@ namespace AutomationFramework_HT
 
         protected string url;
         protected readonly IWebDriver driver;
-        protected readonly WebDriverWait _wait;
+        protected readonly WebDriverWait wait;
 
         protected AbstractPage(IWebDriver driver)
         {
             this.driver = driver;
-            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(WaitTimeoutSeconds));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(WaitTimeoutSeconds));
         }
 
         public void Navigate()
@@ -27,10 +27,10 @@ namespace AutomationFramework_HT
 
         protected void SwitchToFrames()
         {
-            var firstFrameElement = _wait.Until(ExpectedConditions.ElementExists(_firstFrameLocator));
+            var firstFrameElement = wait.Until(ExpectedConditions.ElementExists(_firstFrameLocator));
             driver.SwitchTo().Frame(firstFrameElement);
 
-            var secondFrameElement = _wait.Until(ExpectedConditions.ElementExists(_secondFrameLocator));
+            var secondFrameElement = wait.Until(ExpectedConditions.ElementExists(_secondFrameLocator));
             driver.SwitchTo().Frame(secondFrameElement);
         }
     }

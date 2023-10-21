@@ -14,10 +14,10 @@ namespace AutomationFrameworkTests
             driver.Manage().Window.Maximize();
         }
 
-        [TestCleanup]
-        public void  TestCleanup()
-        {
-            driver.Quit();
-        }
+        //[TestCleanup]
+        //public void TestCleanup()
+        //{
+        //    driver.Quit();
+        //}
     }
 }

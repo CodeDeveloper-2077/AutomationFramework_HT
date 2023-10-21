@@ -8,14 +8,12 @@ namespace AutomationFrameworkTests
     public class CloudPageTests : CommonConditions
     {
         private CloudPage _cloudPage;
-        private CalculatorPage _calculatorPage;
 
         [TestInitialize]
         public void TestInitialize()
         {
             base.TestInitialize();
             _cloudPage = new CloudPage(driver);
-            _calculatorPage = new CalculatorPage(driver);
         }
 
         [TestMethod]
