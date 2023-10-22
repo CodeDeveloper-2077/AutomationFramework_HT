@@ -7,6 +7,7 @@ namespace AutomationFramework_HT.Pages
     public class CloudPage : AbstractPage
     {
         private readonly By _frameHeaderLocator = By.ClassName("ng-binding");
+        private readonly By _calculatorPageLinkLocator = By.XPath("//a[@class='gs-title']");
 
         public CloudPage(IWebDriver driver)
             : base(driver)
@@ -18,15 +19,14 @@ namespace AutomationFramework_HT.Pages
         [FindsBy(How = How.XPath, Using = "//input[@placeholder='Search']")]
         public IWebElement SearchInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//a[@class='gs-title']")]
-        public IWebElement CalculatorPageLink { get; set; }
-
         public void SearchPage(string pageToSearch)
         {
             SearchInput.Click();
             SearchInput.SendKeys(pageToSearch);
             SearchInput.SendKeys(Keys.Enter);
-            CalculatorPageLink.Click();
+
+            var calculatorPageLink = wait.Until(ExpectedConditions.ElementIsVisible(_calculatorPageLinkLocator));
+            calculatorPageLink.Click();
         }
 
         public string GetFrameHeader()

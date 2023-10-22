@@ -31,7 +31,7 @@ namespace AutomationFramework_HT.Pages
         [FindsBy(How = How.XPath, Using = "//md-select[@placeholder='Instance type']")]
         public IWebElement MachineTypeSelectbox { get; set; }
 
-        [FindsBy(How = How.Id, Using = "select_option_471")]
+        [FindsBy(How = How.XPath, Using = "//*[@value='CP-COMPUTEENGINE-VMIMAGE-N1-STANDARD-8']")]
         public IWebElement MachineTypeOption { get; set; }
         #endregion
 
