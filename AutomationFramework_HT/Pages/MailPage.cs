@@ -2,14 +2,14 @@
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 
-namespace AutomationFramework_HT
+namespace AutomationFramework_HT.Pages
 {
     public class MailPage : AbstractPage
     {
         private readonly By _emailLocator = By.ClassName("bname");
 
         public MailPage(IWebDriver driver)
-            :base(driver)
+            : base(driver)
         {
             url = "https://yopmail.com";
             PageFactory.InitElements(driver, this);

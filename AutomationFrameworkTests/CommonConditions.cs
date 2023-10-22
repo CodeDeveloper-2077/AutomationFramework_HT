@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using AutomationFramework_HT.Driver;
 
 namespace AutomationFrameworkTests
 {
@@ -10,14 +10,13 @@ namespace AutomationFrameworkTests
         [TestInitialize]
         public void TestInitialize()
         {
-            driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
+            driver = DriverSingleton.GetInstance();
         }
 
-        //[TestCleanup]
-        //public void TestCleanup()
-        //{
-        //    driver.Quit();
-        //}
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            DriverSingleton.CloseBrowser();
+        }
     }
 }

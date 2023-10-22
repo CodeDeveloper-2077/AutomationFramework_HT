@@ -1,4 +1,4 @@
-using AutomationFramework_HT;
+using AutomationFramework_HT.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -10,7 +10,7 @@ namespace AutomationFrameworkTests
         private CloudPage _cloudPage;
 
         [TestInitialize]
-        public void TestInitialize()
+        new public void TestInitialize()
         {
             base.TestInitialize();
             _cloudPage = new CloudPage(driver);

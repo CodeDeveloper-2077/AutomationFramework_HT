@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
-namespace AutomationFramework_HT
+namespace AutomationFramework_HT.Pages
 {
     public abstract class AbstractPage
     {

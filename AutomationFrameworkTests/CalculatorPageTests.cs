@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using AutomationFramework_HT;
+using AutomationFramework_HT.Pages;
 
 namespace AutomationFrameworkTests
 {

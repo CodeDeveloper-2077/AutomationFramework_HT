@@ -4,7 +4,7 @@ using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 using System.Diagnostics;
 
-namespace AutomationFramework_HT
+namespace AutomationFramework_HT.Pages
 {
     public class CalculatorPage : AbstractPage
     {

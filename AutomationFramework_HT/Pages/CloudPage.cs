@@ -2,14 +2,14 @@
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 
-namespace AutomationFramework_HT
+namespace AutomationFramework_HT.Pages
 {
     public class CloudPage : AbstractPage
     {
         private readonly By _frameHeaderLocator = By.ClassName("ng-binding");
 
         public CloudPage(IWebDriver driver)
-            :base(driver)
+            : base(driver)
         {
             url = "https://cloud.google.com";
             PageFactory.InitElements(driver, this);
