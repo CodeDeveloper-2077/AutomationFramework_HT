@@ -65,7 +65,15 @@ namespace AutomationFramework_HT
         [FindsBy(How = How.Id, Using = "select_139")]
         public IWebElement CommittedUsageInput { get; set; }
 
-        public void FillTheForm()
+        [FindsBy(How = How.Id, Using = "Email Estimate")]
+        public IWebElement EmailEstimateButton { get; set; }
+
+        [FindsBy(How = How.Id, Using = "input_616")]
+        public IWebElement EmailInput { get; set; }
+        [FindsBy(How = How.XPath, Using = "(//*[starts-with(@id, 'dialogContent_')]//button)[last()]")]
+        public IWebElement SendEmailButton { get; set; }
+
+        public void CalculatePrice()
         {
             CookiesWindowOkButton.Click();
             SwitchToFrames();
@@ -94,6 +102,13 @@ namespace AutomationFramework_HT
 
             var EstimateButton = wait.Until(ExpectedConditions.ElementToBeClickable(_estimateButtonLocator));
             EstimateButton.Click();
+        }
+
+        public void SendPrice(string email)
+        {
+            EmailEstimateButton.Click();
+            EmailInput.SendKeys(email);
+            SendEmailButton.Click();
         }
 
         public string GetEstimatedMessage()
