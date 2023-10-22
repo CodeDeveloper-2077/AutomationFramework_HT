@@ -5,14 +5,12 @@ namespace AutomationFrameworkTests
     [TestClass]
     public class MailPageTests : CommonConditions
     {
-        private CloudPage _cloudPage;
         private MailPage _mailPage;
 
         [TestInitialize]
-        public void TestInitialize()
+        new public void TestInitialize()
         {
             base.TestInitialize();
-            _cloudPage = new CloudPage(driver);
             _mailPage = new MailPage(driver);
         }
 
@@ -20,9 +18,15 @@ namespace AutomationFrameworkTests
         [DataRow("test_email")]
         public void CreateEmail_ShouldGenerateNewEmailWithPredefinedName(string email)
         {
+            //Arrange
+            string expectedEmail = "test_email@yopmail.com";
+
             //Act
             _mailPage.Navigate();
             _mailPage.CreateEmail(email);
+
+            //Assert
+            Assert.AreEqual(expectedEmail, _mailPage.GetFullEmail(), $"Actual email should be equal to {expectedEmail}");
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 
 namespace AutomationFramework_HT
 {
     public class MailPage : AbstractPage
     {
+        private readonly By _emailLocator = By.ClassName("bname");
+
         public MailPage(IWebDriver driver)
             :base(driver)
         {
@@ -23,6 +26,12 @@ namespace AutomationFramework_HT
             NecessaryCookiesButton.Click();
             EmailInput.SendKeys(email);
             EmailInput.SendKeys(Keys.Enter);
+        }
+
+        public string GetFullEmail()
+        {
+            var emailElement = wait.Until(ExpectedConditions.ElementExists(_emailLocator));
+            return emailElement.Text;
         }
     }
 }
