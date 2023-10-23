@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 using AutomationFramework_HT.Pages;
+using AutomationFramework_HT.Model;
+using AutomationFramework_HT.Service;
 
 namespace AutomationFrameworkTests
 {
@@ -21,6 +23,7 @@ namespace AutomationFrameworkTests
 
         [TestMethod]
         [DataRow("Google Cloud Platform Pricing Calculator", "test_email")]
+        [TestCategory("Smoke")]
         public void CalculatePrice_ShouldFillTheCalculationFormAndShareTheCorrectResult(string page, string email)
         {
             //Arrange
@@ -33,7 +36,7 @@ namespace AutomationFrameworkTests
 
             _cloudPage.Navigate();
             _cloudPage.SearchPage(page);
-            _calculatorPage.CalculatePrice();
+            _calculatorPage.CalculatePrice(ResourceCreator.CreateResources());
             _calculatorPage.SendPrice($"{email}@yopmail.com");
 
             //Assert

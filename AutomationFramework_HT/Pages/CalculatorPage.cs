@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationFramework_HT.Model;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
@@ -70,35 +71,13 @@ namespace AutomationFramework_HT.Pages
 
         [FindsBy(How = How.Id, Using = "input_616")]
         public IWebElement EmailInput { get; set; }
+
         [FindsBy(How = How.XPath, Using = "(//*[starts-with(@id, 'dialogContent_')]//button)[last()]")]
         public IWebElement SendEmailButton { get; set; }
 
-        public void CalculatePrice()
+        public void CalculatePrice(ResourceModel model)
         {
-            CookiesWindowOkButton.Click();
-            SwitchToFrames();
-
-            InstancesNumberInput.SendKeys("4");
-
-            SeriesSelectbox.SendKeys("N1");
-
-            MachineTypeSelectbox.Click();
-            MachineTypeOption.Click();
-
-            GPUsCheckbox.Click();
-            GPUTypeSearchbox.Click();
-            var GPUTypeNeededOption = wait.Until(ExpectedConditions.ElementToBeClickable(_GPUTypeNeededOptionLocator));
-            GPUTypeNeededOption.Click();
-            GPUsNumberSearchbox.SendKeys("4");
-
-            SSDSelectbox.Click();
-            var sSDNeededOption = wait.Until(ExpectedConditions.ElementToBeClickable(_SSDNeededOptionLocator));
-            sSDNeededOption.Click();
-
-            DatacenterLocationInput.SendKeys("Frankfurt (europe-west3)");
-            var dcLocationNeededOption = wait.Until(ExpectedConditions.ElementToBeClickable(_dcLocationNeededOptionLocator));
-            dcLocationNeededOption.Click();
-            CommittedUsageInput.SendKeys("1");
+            PrepareData(model);
 
             var EstimateButton = wait.Until(ExpectedConditions.ElementToBeClickable(_estimateButtonLocator));
             EstimateButton.Click();
@@ -109,6 +88,34 @@ namespace AutomationFramework_HT.Pages
             EmailEstimateButton.Click();
             EmailInput.SendKeys(email);
             SendEmailButton.Click();
+        }
+
+        private void PrepareData(ResourceModel resources)
+        {
+            CookiesWindowOkButton.Click();
+            SwitchToFrames();
+
+            InstancesNumberInput.SendKeys(resources.NumberOfInstances.ToString());
+
+            SeriesSelectbox.SendKeys(resources.Series);
+
+            MachineTypeSelectbox.Click();
+            MachineTypeOption.Click();
+
+            GPUsCheckbox.Click();
+            GPUTypeSearchbox.Click();
+            var GPUTypeNeededOption = wait.Until(ExpectedConditions.ElementToBeClickable(_GPUTypeNeededOptionLocator));
+            GPUTypeNeededOption.Click();
+            GPUsNumberSearchbox.SendKeys(resources.NumberOfGPUs.ToString());
+
+            SSDSelectbox.Click();
+            var sSDNeededOption = wait.Until(ExpectedConditions.ElementToBeClickable(_SSDNeededOptionLocator));
+            sSDNeededOption.Click();
+
+            DatacenterLocationInput.SendKeys(resources.DatacenterLocation);
+            var dcLocationNeededOption = wait.Until(ExpectedConditions.ElementToBeClickable(_dcLocationNeededOptionLocator));
+            dcLocationNeededOption.Click();
+            CommittedUsageInput.SendKeys(resources.CommittedUsage.ToString());
         }
 
         public string GetEstimatedMessage()
