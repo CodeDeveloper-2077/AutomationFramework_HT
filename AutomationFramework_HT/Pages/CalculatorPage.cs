@@ -1,9 +1,8 @@
 ﻿using AutomationFramework_HT.Model;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
-using System.Diagnostics;
 
 namespace AutomationFramework_HT.Pages
 {
@@ -11,10 +10,13 @@ namespace AutomationFramework_HT.Pages
     {
         private readonly By _estimateButtonLocator = By.XPath("//*[@id='mainForm']//div[20]//button");
         private readonly By _estimatedMessageLocator = By.XPath("(//b[@class='ng-binding'])[last()]");
+        private readonly ILogger<CalculatorPage> _logger;
 
-        public CalculatorPage(IWebDriver driver)
+        public CalculatorPage(IWebDriver driver, ILogger<CalculatorPage> logger)
             : base(driver)
         {
+            _logger = logger;
+            _logger.LogInformation("App has been started!");
             url = "https://cloud.google.com/products/calculator";
             PageFactory.InitElements(driver, this);
         }
