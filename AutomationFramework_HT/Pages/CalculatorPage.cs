@@ -16,7 +16,6 @@ namespace AutomationFramework_HT.Pages
             : base(driver)
         {
             _logger = logger;
-            _logger.LogInformation("App has been started!");
             url = "https://cloud.google.com/products/calculator";
             PageFactory.InitElements(driver, this);
         }
@@ -94,7 +93,15 @@ namespace AutomationFramework_HT.Pages
 
         private void PrepareData(ResourceModel resources)
         {
-            CookiesWindowOkButton.Click();
+            try
+            {
+                CookiesWindowOkButton.Click();
+            }
+            catch(NoSuchElementException ex)
+            {
+                _logger.LogError(ex, "No Accept Cookies Alert");
+            }
+
             SwitchToFrames();
 
             InstancesNumberInput.SendKeys(resources.NumberOfInstances.ToString());

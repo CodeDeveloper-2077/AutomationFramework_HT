@@ -1,4 +1,6 @@
 ﻿using AutomationFramework_HT.Pages;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 
 namespace AutomationFrameworkTests
 {
@@ -6,12 +8,17 @@ namespace AutomationFrameworkTests
     public class MailPageTests : CommonConditions
     {
         private MailPage _mailPage;
+        private ILogger<MailPage> _logger;
 
         [TestInitialize]
         new public void TestInitialize()
         {
             base.TestInitialize();
-            _mailPage = new MailPage(driver);
+            _logger = LoggerFactory.Create(builder => builder.AddNLog())
+                                   .CreateLogger<MailPage>();
+            _logger.LogInformation("MailPageLogger has been created");
+
+            _mailPage = new MailPage(driver, _logger);
         }
 
         [TestMethod]

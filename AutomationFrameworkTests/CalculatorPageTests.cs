@@ -1,7 +1,8 @@
 ﻿using OpenQA.Selenium;
 using AutomationFramework_HT.Pages;
-using AutomationFramework_HT.Model;
 using AutomationFramework_HT.Service;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 
 namespace AutomationFrameworkTests
 {
@@ -11,14 +12,24 @@ namespace AutomationFrameworkTests
         private CloudPage _cloudPage;
         private CalculatorPage _calculatorPage;
         private MailPage _mailPage;
+        private ILogger<CalculatorPage> _calculatorPageLogger;
+        private ILogger<MailPage> _mailPageLogger;
 
         [TestInitialize]
         new public void TestInitialize()
         {
             base.TestInitialize();
+            _calculatorPageLogger = LoggerFactory.Create(builder => builder.AddNLog())
+                                                 .CreateLogger<CalculatorPage>();
+            _calculatorPageLogger.LogInformation("CalculatorPageLogger has been created");
+
+            _mailPageLogger = LoggerFactory.Create(builder => builder.AddNLog())
+                                           .CreateLogger<MailPage>();
+            _mailPageLogger.LogInformation("MailPageLogger has been created");
+
             _cloudPage = new CloudPage(driver);
-            _calculatorPage = new CalculatorPage(driver, logger);
-            _mailPage = new MailPage(driver);
+            _calculatorPage = new CalculatorPage(driver, _calculatorPageLogger);
+            _mailPage = new MailPage(driver, _mailPageLogger);
         }
 
         [TestMethod]
