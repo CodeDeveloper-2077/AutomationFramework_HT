@@ -28,7 +28,7 @@ namespace AutomationFrameworkTests
             _mailPageLogger.LogInformation("MailPageLogger has been created");
 
             _cloudPage = new CloudPage(driver);
-            _calculatorPage = new CalculatorPage(driver, _calculatorPageLogger);
+            _calculatorPage = new CalculatorPage(driver, _calculatorPageLogger, printScreenService);
             _mailPage = new MailPage(driver, _mailPageLogger);
         }
 

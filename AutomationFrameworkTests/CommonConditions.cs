@@ -6,11 +6,13 @@ namespace AutomationFrameworkTests
     public class CommonConditions
     {
         protected IWebDriver driver;
+        protected PrintScreenService printScreenService;
 
         [TestInitialize]
         public void TestInitialize()
         {
             driver = DriverSingleton.GetInstance();
+            printScreenService = new PrintScreenService();
         }
 
         [TestCleanup]

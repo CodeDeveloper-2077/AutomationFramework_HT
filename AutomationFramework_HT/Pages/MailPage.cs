@@ -9,13 +9,16 @@ namespace AutomationFramework_HT.Pages
     {
         private readonly By _emailLocator = By.ClassName("bname");
         private readonly ILogger<MailPage> _logger;
+        private readonly PrintScreenService _printScreenService;
 
-        public MailPage(IWebDriver driver, ILogger<MailPage> logger)
+        public MailPage(IWebDriver driver, ILogger<MailPage> logger, PrintScreenService printScreenService)
             : base(driver)
         {
             _logger = logger;
+            _printScreenService = printScreenService;
             url = "https://yopmail.com";
             PageFactory.InitElements(driver, this);
+
         }
 
         [FindsBy(How = How.Id, Using = "login")]
@@ -33,6 +36,7 @@ namespace AutomationFramework_HT.Pages
             catch (NoSuchElementException ex)
             {
                 _logger.LogError(ex, "No Terms Alert");
+                _printScreenService.CaptureScreenToFile("screen.png", System.Drawing.Imaging.ImageFormat.Png);
             }
 
             EmailInput.SendKeys(email);

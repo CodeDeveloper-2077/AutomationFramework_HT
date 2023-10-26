@@ -11,11 +11,13 @@ namespace AutomationFramework_HT.Pages
         private readonly By _estimateButtonLocator = By.XPath("//*[@id='mainForm']//div[20]//button");
         private readonly By _estimatedMessageLocator = By.XPath("(//b[@class='ng-binding'])[last()]");
         private readonly ILogger<CalculatorPage> _logger;
+        private readonly PrintScreenService _printScreenService;
 
-        public CalculatorPage(IWebDriver driver, ILogger<CalculatorPage> logger)
+        public CalculatorPage(IWebDriver driver, ILogger<CalculatorPage> logger, PrintScreenService printScreenService)
             : base(driver)
         {
             _logger = logger;
+            _printScreenService = printScreenService;
             url = "https://cloud.google.com/products/calculator";
             PageFactory.InitElements(driver, this);
         }
@@ -99,6 +101,7 @@ namespace AutomationFramework_HT.Pages
             }
             catch(NoSuchElementException ex)
             {
+                _printScreenService.CaptureScreenToFile("screen.png", System.Drawing.Imaging.ImageFormat.Png);
                 _logger.LogError(ex, "No Accept Cookies Alert");
             }
 
