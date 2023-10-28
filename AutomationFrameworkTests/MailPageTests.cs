@@ -18,7 +18,7 @@ namespace AutomationFrameworkTests
                                    .CreateLogger<MailPage>();
             _logger.LogInformation("MailPageLogger has been created");
 
-            _mailPage = new MailPage(driver, _logger);
+            _mailPage = new MailPage(driver, _logger, printScreenService);
         }
 
         [TestMethod]

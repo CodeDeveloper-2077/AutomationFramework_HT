@@ -4,11 +4,11 @@ namespace AutomationFramework_HT.Service
 {
     public class ResourceCreator
     {
-        public const int NumberOfInstances = 4;
-        public const int NumberOfGPUs = 1;
-        public const int CommittedUsage = 1;
-        public const string Series = "N1";
-        public const string DataCenterLocation = "Frankfurt (europe-west3)";
+        public static int NumberOfInstances = int.Parse(Properties.GetProperty()["NumberOfInstances"]);
+        public static int NumberOfGPUs = int.Parse(Properties.GetProperty()["NumberOfGPUs"]);
+        public static int CommittedUsage = int.Parse(Properties.GetProperty()["CommittedUsage"]);
+        public static string Series = Properties.GetProperty()["Series"];
+        public static string DataCenterLocation = Properties.GetProperty()["DataCenterLocation"];
 
         public static ResourceModel CreateResources()
         {

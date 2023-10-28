@@ -5,7 +5,9 @@ using System.Runtime.InteropServices;
 
 public class PrintScreenService
 {
-    private readonly string outputDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Logs\";
+    private readonly string _path = Directory.GetParent(Directory.GetCurrentDirectory())
+                                            .Parent
+                                            .Parent.FullName + @"\Screenshots";
 
     /// <summary>
     /// Creates an Image object containing a screen shot of the entire desktop
@@ -73,7 +75,7 @@ public class PrintScreenService
     public void CaptureScreenToFile(string filename, ImageFormat format)
     {
         Image img = CaptureScreen();
-        img.Save(Path.Combine(outputDirectory, filename), format);
+        img.Save(Path.Combine(_path, filename), format);
     }
 
     /// <summary>

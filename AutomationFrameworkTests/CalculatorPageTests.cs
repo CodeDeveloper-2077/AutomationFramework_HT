@@ -29,7 +29,7 @@ namespace AutomationFrameworkTests
 
             _cloudPage = new CloudPage(driver);
             _calculatorPage = new CalculatorPage(driver, _calculatorPageLogger, printScreenService);
-            _mailPage = new MailPage(driver, _mailPageLogger);
+            _mailPage = new MailPage(driver, _mailPageLogger, printScreenService);
         }
 
         [TestMethod]
